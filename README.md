@@ -1,5 +1,7 @@
 # cuj-to-slo
 
+English | [日本語](README.ja.md)
+
 Agent skills that turn users, critical user journeys (CUJs) and requirements into quality-in-use requirements and KPIs, then functional requirements, then product and data quality requirements, and finally non-functional requirements with SLIs and SLOs. Every item traces back up the chain, so any SLO can be followed to the user it protects.
 
 > **Status: experimental (0.2.0).** The chain has been run end to end once, on a fictional product with simulated answers. It has not been used on a real project yet, so check its first results closely.
