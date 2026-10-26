@@ -69,7 +69,7 @@ Status: draft | answers applied · Updated: <date> · Stage 3 of 4
 <Include changes stage 1 needs (a data producer to add, a data role to correct), and the QRs moved, merged or split after checking telling-apart.md.>
 ## Out of scope
 ## Next
-<If FRPs were raised: re-run `quality-in-use-to-functional-req`, then this stage for the new FRs. If stage 1 needs changes, re-run it first. Then run `product-quality-to-slo`.>
+<If FRPs were raised: re-run `quality-in-use-to-functional-requirements`, then this stage for the new FRs. If stage 1 needs changes, re-run it first. Then run `product-quality-to-slo`.>
 ```
 
 ## Worked example: online store
@@ -153,7 +153,7 @@ basis: inferred
 basis_note: null
 needs_agreement: false
 approver_candidates: []
-proposed_by: functional-req-to-product-quality
+proposed_by: functional-requirements-to-product-quality
 origin: [QR-08]
 changes: null
 reason: Checkout must continue when the payment provider fails; no FR switches providers.

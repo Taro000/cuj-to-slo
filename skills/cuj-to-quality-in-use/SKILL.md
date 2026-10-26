@@ -1,9 +1,9 @@
 ---
 name: cuj-to-quality-in-use
-description: Stage 1 of 4 in the quality chain. Turns the users, critical user journeys (CUJs) and requirements a person provides into quality-in-use requirements (who must reach which goal, in which context of use, judged by effectiveness, efficiency, satisfaction, freedom from risk and context coverage) and means KPIs, by writing one A÷B formula per intermediate outcome and counting it narrowed to the context (quality-in-use measure) and overall (KPI). Drafts everything first, then asks about every uncertain point. Use it whenever someone has personas or user types, CUJs, user stories, a PRD or business goals (KGI, OKR) and wants user-outcome metrics, KPIs tied to user goals, UX quality requirements, or a starting point for deriving functional requirements, quality attributes, NFRs or SLOs from user needs, even if they never say "quality in use". Writes docs/quality/. Next stage is quality-in-use-to-functional-req.
+description: Stage 1 of 4 in the quality chain. Turns the users, critical user journeys (CUJs) and requirements a person provides into quality-in-use requirements (who must reach which goal, in which context of use, judged by effectiveness, efficiency, satisfaction, freedom from risk and context coverage) and means KPIs, by writing one A÷B formula per intermediate outcome and counting it narrowed to the context (quality-in-use measure) and overall (KPI). Drafts everything first, then asks about every uncertain point. Use it whenever someone has personas or user types, CUJs, user stories, a PRD or business goals (KGI, OKR) and wants user-outcome metrics, KPIs tied to user goals, UX quality requirements, or a starting point for deriving functional requirements, quality attributes, NFRs or SLOs from user needs, even if they never say "quality in use". Writes docs/quality/. Next stage is quality-in-use-to-functional-requirements.
 license: MIT
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # CUJ → quality in use and KPIs
@@ -106,4 +106,4 @@ Write the draft report following `report-template.md`. Ask about every uncertain
 
 ## Finish
 
-Tell the user which files were written and how many items of each kind, what needs agreement, which gaps remain open, and that the next stage is `quality-in-use-to-functional-req`.
+Tell the user which files were written and how many items of each kind, what needs agreement, which gaps remain open, and that the next stage is `quality-in-use-to-functional-requirements`.

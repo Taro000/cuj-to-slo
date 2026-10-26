@@ -1,16 +1,16 @@
-# quality-kpi-skills
+# cuj-to-slo
 
 Agent skills that turn users, critical user journeys (CUJs) and requirements into quality-in-use requirements and KPIs, then functional requirements, then product and data quality requirements, and finally non-functional requirements with SLIs and SLOs. Every item traces back up the chain, so any SLO can be followed to the user it protects.
 
-> **Status: experimental (0.1.0).** The chain has been run end to end once, on a fictional product with simulated answers. It has not been used on a real project yet, so check its first results closely.
+> **Status: experimental (0.2.0).** The chain has been run end to end once, on a fictional product with simulated answers. It has not been used on a real project yet, so check its first results closely.
 
 ## The chain
 
 | Stage | Skill | Input | Output |
 |---|---|---|---|
 | 1 | `cuj-to-quality-in-use` | Users, CUJs and requirements you provide | Quality-in-use requirements, means KPIs |
-| 2 | `quality-in-use-to-functional-req` | Stage 1 output | Functional requirements with acceptance criteria |
-| 3 | `functional-req-to-product-quality` | Stage 2 output, plus requirements that do not come from users (laws, standards, security risk analysis, development policies) | Prioritized product and data quality requirements |
+| 2 | `quality-in-use-to-functional-requirements` | Stage 1 output | Functional requirements with acceptance criteria |
+| 3 | `functional-requirements-to-product-quality` | Stage 2 output, plus requirements that do not come from users (laws, standards, security risk analysis, development policies) | Prioritized product and data quality requirements |
 | 4 | `product-quality-to-slo` | Stage 3 output, plus operational facts (telemetry, traffic, baselines) | Non-functional requirements, SLI definitions, provisional SLOs, error budget policy, alerts (burn-rate, or progress alerts for deadlines) |
 
 Stages 3 and 4 never add functional requirements themselves. When a quality requirement needs a function that is missing, they write a function proposal; re-run stage 2 to accept or reject it.
@@ -19,13 +19,13 @@ Stages 3 and 4 never add functional requirements themselves. When a quality requ
 
 ```sh
 # all four skills, into the current project
-npx skills add Taro000/quality-kpi-skills
+npx skills add Taro000/cuj-to-slo
 
 # list the skills without installing
-npx skills add Taro000/quality-kpi-skills --list
+npx skills add Taro000/cuj-to-slo --list
 
 # one skill, for Claude Code only, available in every project
-npx skills add Taro000/quality-kpi-skills --skill product-quality-to-slo -a claude-code -g
+npx skills add Taro000/cuj-to-slo --skill product-quality-to-slo -a claude-code -g
 ```
 
 ## Use

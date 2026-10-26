@@ -69,7 +69,7 @@ Status: draft | answers applied · Updated: <date> · Stage 1 of 4
 ## Open gaps
 ## Out of scope
 ## Next
-Run `quality-in-use-to-functional-req`.
+Run `quality-in-use-to-functional-requirements`.
 ```
 
 ## Worked example: online store

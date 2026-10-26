@@ -5,8 +5,8 @@ Four skills form one chain. Each reads the artifacts of the stages above it and 
 | Stage | Skill | Reads | Writes |
 |---|---|---|---|
 | 1 | `cuj-to-quality-in-use` | users, CUJs and requirements given by the user | `context.yaml`, quality-in-use requirements (QIU), means KPIs (KPI) |
-| 2 | `quality-in-use-to-functional-req` | context, QIU, KPI, open function proposals (FRP) | functional requirements (FR), FRP resolutions |
-| 3 | `functional-req-to-product-quality` | context, QIU, KPI, FR, requirements that do not come from users | product and data quality requirements (QR), FRP |
+| 2 | `quality-in-use-to-functional-requirements` | context, QIU, KPI, open function proposals (FRP) | functional requirements (FR), FRP resolutions |
+| 3 | `functional-requirements-to-product-quality` | context, QIU, KPI, FR, requirements that do not come from users | product and data quality requirements (QR), FRP |
 | 4 | `product-quality-to-slo` | context, QIU, FR, QR, operational facts | non-functional requirements (NFR), SLI definitions (SLI), error budget policies (EBP), FRP |
 
 An upper stage is the reason for the stages below it; a lower stage is the means of achieving the stages above it. Every item traces up to the item it serves, so anyone can walk from an SLO back to the user it protects.

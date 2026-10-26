@@ -72,7 +72,7 @@ Status: draft | answers applied · Updated: <date> · Stage 4 of 4
 ## Open gaps
 ## Out of scope
 ## Next
-<If FRPs were raised: re-run `quality-in-use-to-functional-req`, then stages 3 and 4 for the affected items.>
+<If FRPs were raised: re-run `quality-in-use-to-functional-requirements`, then stages 3 and 4 for the affected items.>
 ```
 
 ## Worked example: online store

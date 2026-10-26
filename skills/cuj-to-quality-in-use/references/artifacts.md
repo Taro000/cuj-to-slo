@@ -189,7 +189,7 @@ basis: inferred
 basis_note: null
 needs_agreement: false
 approver_candidates: []
-proposed_by: functional-req-to-product-quality   # or product-quality-to-slo
+proposed_by: functional-requirements-to-product-quality   # or product-quality-to-slo
 origin: [QR-08]                       # the quality requirements that need the function
 changes: null                         # FR ID when the proposal changes an existing FR instead of adding one
 reason: Checkout must continue when the payment provider fails; no FR switches providers.

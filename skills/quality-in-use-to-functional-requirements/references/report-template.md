@@ -58,7 +58,7 @@ Status: draft | answers applied · Updated: <date> · Stage 2 of 4
 <Include the functions you expect stage 3 to propose for laws, standards, risk analysis or policies.>
 ## Out of scope
 ## Next
-Run `functional-req-to-product-quality`. After resolving proposals, name the later-stage items they affect and the stages to re-run for them.
+Run `functional-requirements-to-product-quality`. After resolving proposals, name the later-stage items they affect and the stages to re-run for them.
 ```
 
 ## Worked example: online store
@@ -108,8 +108,8 @@ Function proposals, on a re-run after stage 3:
 
 | FRP | Proposed by | For | Decision | Result |
 |---|---|---|---|---|
-| FRP-01 Switch to a secondary payment provider | functional-req-to-product-quality | QR-08 fault tolerance | Accepted | FR-09 |
-| FRP-02 Send stock changes from the warehouse as events | functional-req-to-product-quality | QR-03 currentness | Rejected: FR-05 already receives every stock change as an event | FR-05 noted in the resolution |
+| FRP-01 Switch to a secondary payment provider | functional-requirements-to-product-quality | QR-08 fault tolerance | Accepted | FR-09 |
+| FRP-02 Send stock changes from the warehouse as events | functional-requirements-to-product-quality | QR-03 currentness | Rejected: FR-05 already receives every stock change as an event | FR-05 noted in the resolution |
 
 ## Example items
 
@@ -153,7 +153,7 @@ basis: inferred
 basis_note: null
 needs_agreement: false
 approver_candidates: []
-proposed_by: functional-req-to-product-quality
+proposed_by: functional-requirements-to-product-quality
 origin: [QR-08]
 changes: null
 reason: Checkout must continue when the payment provider fails; no FR switches providers.
