@@ -1,3 +1,7 @@
+<p align="center">
+  <img src=".github/assets/logo.svg" alt="cuj-to-slo logo" width="640">
+</p>
+
 # cuj-to-slo
 
 English | [日本語](README.ja.md)
