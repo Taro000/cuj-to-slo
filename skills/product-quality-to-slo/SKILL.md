@@ -1,9 +1,9 @@
 ---
 name: product-quality-to-slo
-description: Stage 4 of 4 in the quality chain. Turns product and data quality requirements (from functional-req-to-product-quality) into non-functional requirements and SLIs/SLOs. Decides for each requirement whether it becomes an SLO on production behaviour, a CI gate or Definition-of-Done item for internal quality, an audit or deadline (security, usability, maintainability), or a light monitor for minimum lines. Writes each SLI as good events ÷ valid events with its measurement point, counting rules, exclusions and blind spots, so two people get the same number; sets provisional SLO targets (never handed down from KPIs), windows and error budgets; drafts an error budget policy and multi-window burn-rate alerts; proposes missing supporting functions back to stage 2. Drafts first, then asks about every uncertain point. Use it for NFRs, SLOs, SLIs, error budgets, burn-rate alerts, latency or availability targets, data freshness or completeness SLOs, or "how do we measure this quality requirement".
+description: Stage 4 of 4 in the quality chain. Turns product and data quality requirements (from functional-requirements-to-product-quality) into non-functional requirements and SLIs/SLOs. Decides for each requirement whether it becomes an SLO on production behaviour, a CI gate or Definition-of-Done item for internal quality, an audit or deadline (security, usability, maintainability), or a light monitor for minimum lines. Writes each SLI as good events ÷ valid events with its measurement point, counting rules, exclusions and blind spots, so two people get the same number; sets provisional SLO targets (never handed down from KPIs), windows and error budgets; drafts an error budget policy and multi-window burn-rate alerts; proposes missing supporting functions back to stage 2. Drafts first, then asks about every uncertain point. Use it for NFRs, SLOs, SLIs, error budgets, burn-rate alerts, latency or availability targets, data freshness or completeness SLOs, or "how do we measure this quality requirement".
 license: MIT
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Product and data quality → non-functional requirements, SLIs and SLOs
@@ -29,7 +29,7 @@ The most common failure at this stage is an SLI defined only by a name and a for
 - `docs/quality/qr/` from stage 3, with `fr/`, `qiu/`, `kpi/` and `context.yaml`. If they do not exist, accept the same information from the user and record its source in the report.
 - Operational facts: what telemetry exists (load balancer logs, application events, job logs, data timestamps), traffic volumes, peak workloads, existing SLOs or SLAs, and baselines (load tests, current production figures). Start from `context.yaml → operational_facts`, recorded by stage 1, and the QRs' `stated_numbers`, then add what the user gives.
 
-Essential input: at least one QR whose handling is `emphasized` or `minimum-line`. If there is none, ask for it (or suggest running `functional-req-to-product-quality`) before drafting. Missing operational facts are gaps and questions; never invent traffic numbers. When the volume is unknown, leave the error budget as a formula.
+Essential input: at least one QR whose handling is `emphasized` or `minimum-line`. If there is none, ask for it (or suggest running `functional-requirements-to-product-quality`) before drafting. Missing operational facts are gaps and questions; never invent traffic numbers. When the volume is unknown, leave the error budget as a formula.
 
 If function proposals from stage 3 are still `proposed`, go on, but say in `basis_note` which NFRs depend on them, and remind the user at the end that stage 2 must resolve them.
 
@@ -121,4 +121,4 @@ Write the draft report following `report-template.md`. Ask about every uncertain
 
 ## Finish
 
-Tell the user which files were written, how many NFRs of each kind, which SLOs carry provisional targets, what needs agreement, which FRPs were raised (re-run `quality-in-use-to-functional-req` to resolve them, then stages 3 and 4 for the affected items), and which questions remain open.
+Tell the user which files were written, how many NFRs of each kind, which SLOs carry provisional targets, what needs agreement, which FRPs were raised (re-run `quality-in-use-to-functional-requirements` to resolve them, then stages 3 and 4 for the affected items), and which questions remain open.

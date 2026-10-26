@@ -1,9 +1,9 @@
 ---
-name: quality-in-use-to-functional-req
-description: Stage 2 of 4 in the quality chain. Derives functional requirements from quality-in-use requirements and means KPIs (the output of cuj-to-quality-in-use) - the functions each CUJ step needs, plus the functions a quality-in-use need implies, such as saved details for efficiency, duplicate-charge prevention for economic risk, trace IDs for the engineers who fix failures, or reconciliation reports for accounting. Each function traces to its QIU or KPI and gets functional acceptance criteria, with every "how well" left for stage 3. When re-run, it accepts or rejects the function proposals raised by later stages. Drafts first, then asks about every uncertain point. Use it when someone wants to turn CUJs, quality-in-use requirements or KPIs into functional requirements, user stories, a backlog or acceptance criteria, or asks which features a user outcome needs. Next stage is functional-req-to-product-quality.
+name: quality-in-use-to-functional-requirements
+description: Stage 2 of 4 in the quality chain. Derives functional requirements from quality-in-use requirements and means KPIs (the output of cuj-to-quality-in-use) - the functions each CUJ step needs, plus the functions a quality-in-use need implies, such as saved details for efficiency, duplicate-charge prevention for economic risk, trace IDs for the engineers who fix failures, or reconciliation reports for accounting. Each function traces to its QIU or KPI and gets functional acceptance criteria, with every "how well" left for stage 3. When re-run, it accepts or rejects the function proposals raised by later stages. Drafts first, then asks about every uncertain point. Use it when someone wants to turn CUJs, quality-in-use requirements or KPIs into functional requirements, user stories, a backlog or acceptance criteria, or asks which features a user outcome needs. Next stage is functional-requirements-to-product-quality.
 license: MIT
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Quality in use and KPIs → functional requirements
@@ -72,7 +72,7 @@ On a re-run, process every FRP whose status is `proposed`. Leave the other FRs a
 - Set the FRP's `status` to `accepted` or `rejected`, bump its version, and add a changelog entry.
 - If you are unsure whether the proposal is worth a function, draft your decision and ask.
 
-Finally, tell the user which later-stage items the decisions affect, using each FRP's `affects`: new and changed FRs and QRs left without a function (re-run `functional-req-to-product-quality`), and the NFRs that waited for a proposal (then re-run `product-quality-to-slo`).
+Finally, tell the user which later-stage items the decisions affect, using each FRP's `affects`: new and changed FRs and QRs left without a function (re-run `functional-requirements-to-product-quality`), and the NFRs that waited for a proposal (then re-run `product-quality-to-slo`).
 
 ### 5. Untraced functions
 
@@ -100,4 +100,4 @@ Write the draft report following `report-template.md`. Ask about every uncertain
 
 ## Finish
 
-Tell the user which files were written or updated, how many FRs are new and how many existing, how many came from proposals, what needs agreement, which questions remain open, and that the next stage is `functional-req-to-product-quality`.
+Tell the user which files were written or updated, how many FRs are new and how many existing, how many came from proposals, what needs agreement, which questions remain open, and that the next stage is `functional-requirements-to-product-quality`.

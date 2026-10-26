@@ -1,9 +1,9 @@
 ---
-name: functional-req-to-product-quality
-description: Stage 3 of 4 in the quality chain. Derives product quality and data quality requirements for the functional requirements produced by quality-in-use-to-functional-req. Walks all eight product quality characteristics (31 sub-characteristics) and all fifteen data quality characteristics, writes failure scenarios, scores impact × likelihood, keeps two to four emphasized quality requirements per CUJ and records why the rest are minimum lines or excluded this cycle, writes external quality before internal, takes in requirements that never come from users (laws, standards and guidelines, security risk analysis, development policies), records conflicts, and proposes missing supporting functions back to stage 2. Drafts first, then asks about every uncertain point. Use it when someone wants quality attributes or "-ilities", a prioritized list of quality characteristics, data quality requirements, or NFR candidates for a set of functions or CUJs. Next stage is product-quality-to-slo.
+name: functional-requirements-to-product-quality
+description: Stage 3 of 4 in the quality chain. Derives product quality and data quality requirements for the functional requirements produced by quality-in-use-to-functional-requirements. Walks all eight product quality characteristics (31 sub-characteristics) and all fifteen data quality characteristics, writes failure scenarios, scores impact × likelihood, keeps two to four emphasized quality requirements per CUJ and records why the rest are minimum lines or excluded this cycle, writes external quality before internal, takes in requirements that never come from users (laws, standards and guidelines, security risk analysis, development policies), records conflicts, and proposes missing supporting functions back to stage 2. Drafts first, then asks about every uncertain point. Use it when someone wants quality attributes or "-ilities", a prioritized list of quality characteristics, data quality requirements, or NFR candidates for a set of functions or CUJs. Next stage is product-quality-to-slo.
 license: MIT
 metadata:
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Functional requirements → product quality and data quality
@@ -32,7 +32,7 @@ Specifying and measuring every sub-characteristic is not possible. Walk all of t
 - Requirements that do not come from users: laws and regulations, standards and guidelines, security requirements from risk analysis, development policies and constraints. Take them from the hints, the input or the user.
 - Architecture notes when available (dependencies, data stores, external services). They make failure scenarios concrete.
 
-Essential input: at least one FR that traces to a QIU. If there is none, ask for it (or suggest running `quality-in-use-to-functional-req`) before drafting.
+Essential input: at least one FR that traces to a QIU. If there is none, ask for it (or suggest running `quality-in-use-to-functional-requirements`) before drafting.
 
 ## Workflow
 
