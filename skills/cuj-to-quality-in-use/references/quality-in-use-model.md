@@ -41,12 +41,12 @@ Each example has the form "who, in what situation, ends up how". Users are rarel
 - Food delivery app: restaurant staff mark a dish as sold out in a few seconds, without stopping cooking.
 - Hospital: nurses record one medication administration in about 30 seconds.
 - B2B expense service: approvers clear a week of claims in five minutes.
-- Data product: analysts answer a routine question from the published tables without writing a new query.
+- Data product: analysts answer a routine question from the published data without writing a new query.
 
 ### Satisfaction > usefulness
 - Online store: buyers find that the delivered item matches its description and are glad they bought it.
 - Food delivery app: customers get warm food at the promised time and are glad they ordered.
-- Hospital: patients wait less thanks to web booking and are glad they booked that way.
+- Hospital: patients wait less thanks to online booking and are glad they booked that way.
 
 ### Satisfaction > trust
 - Online store: buyers feel safe entering card details, and believe the total on the confirmation screen.
@@ -111,7 +111,7 @@ Statements whose subject is the product or the data belong to stage 3. Record th
 - Reliability vs trust: whether the product actually keeps running (counted from records), against whether users believe it behaves as intended (asked of users). One wrong bill destroys trust even without any downtime.
 - Functional suitability vs effectiveness: whether the functions exist and work correctly, against whether users reach their goal to the end. Correct functions do not help if users cannot find them.
 - User interface aesthetics and operability vs pleasure and comfort: properties of the screens, such as colours or the number of steps (inspect the screens), against the enjoyment and physical ease that users feel (ask the users).
-- Adaptability vs context coverage: whether the product runs on other devices or operating systems, against whether people get the same result in other situations. The product can run everywhere while completion still drops on a slow network.
+- Adaptability vs context coverage: whether the product can run in other hardware or software environments, against whether people get the same result in other situations. The product can run everywhere while completion still drops on a slow network.
 
 Usability and accessibility can be measured either as product properties (inspect the screens) or as quality in use (observe people using it). Decide which, before writing anything; otherwise two people will look at different things under the same name.
 

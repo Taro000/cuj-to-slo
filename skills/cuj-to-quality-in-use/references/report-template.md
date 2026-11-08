@@ -5,46 +5,48 @@
 - Worked example: online store
 - Example items
 
-Write the report in the working language. Translate the headings. Keep the IDs as they are, and write the basis marks and statuses with the glossary's terms for the working language.
+Write the report in the working language. Translate the headings. Keep the IDs as they are, and write the basis marks, statuses and other enum values with the glossary's terms for the working language.
+
+The report indexes the items and holds only what no item holds (`artifacts.md`, "Layout"). Never restate what an item or `context.yaml` says: no statements, goals, steps, needs, measures, formulas, failure scenarios, target values or exclusion reasons, and none of the text of constraints, external systems, operational facts, design inputs or hints. The tables show IDs, titles or names, enum values and references; where an entry has no title (an outcome), use a label of a few words.
 
 ## Report template
 
 ```markdown
 # Quality in use and KPIs: <system name>
 
-Status: draft | answers applied · Updated: <date> · Stage 1 of 4
+Status: draft | answers applied · Updated: <date> · Inputs as of: <commit, or "none"> · Stage 1 of 4
 
 ## Summary
-<Two or three sentences: which CUJs are protected, how many QIUs and KPIs, what still needs agreement.>
+<Two or three sentences: the system in one line of your own words, which CUJs are protected, how many QIUs and KPIs, how many questions were asked, how many assumptions are open.>
 
 ## Inputs
 | Source | What it gave |
 |---|---|
+<The documents the user gave. The user's answers are under "Decisions".>
 
-## System boundary
-- Boundary: …
-- Purpose: …
-- Constraints: …
-- Systems that create data: …
+## Shared facts
+<One line: the boundary and purpose are in `system` in context.yaml; then the number of shared facts of each kind (constraints, external systems and how many of them create data, operational facts, design inputs). The entries themselves are only in context.yaml, where later stages add their own.>
 
 ## Business requirements
-| ID | KGI | Measure | Target | Basis |
-|---|---|---|---|---|
+| ID | KGI | Basis |
+|---|---|---|
 
-| ID | Intermediate outcome | Verb | KGI | Basis |
+| ID | Intermediate outcome | Verb | KGIs | Basis |
 |---|---|---|---|---|
+<A label of a few words for each outcome.>
 
 ## Users
-| ID | User | Category | Data role | Considered | Reason if excluded | Basis |
-|---|---|---|---|---|---|---|
+| ID | User | Category | Data role | Considered | Basis |
+|---|---|---|---|---|---|
 
 ## CUJs
-| ID | CUJ | Users | User's goal | Steps | Outcomes | Basis |
-|---|---|---|---|---|---|---|
+| ID | CUJ | Users | Outcomes | Basis |
+|---|---|---|---|---|
 
 ## Quality-in-use requirements
-| ID | User | CUJ | Context of use | Characteristic | Requirement | Basis |
-|---|---|---|---|---|---|---|
+| ID | Title | User | CUJ | Characteristic | KPI | Target | Basis |
+|---|---|---|---|---|---|---|---|
+<Target: the target status.>
 
 ### Not targeted
 <One row per reason; a row can cover several CUJs and characteristics.>
@@ -52,24 +54,37 @@ Status: draft | answers applied · Updated: <date> · Stage 1 of 4
 |---|---|---|
 
 ## One formula, two counts
-| Outcome | Formula (A ÷ B) | Narrowed: quality-in-use measure | Overall: means KPI | Overlap |
-|---|---|---|---|---|
+| Outcome | QIU (narrowed) | KPI (overall) | Overlap |
+|---|---|---|---|
+<One row per formula, with the ID and title of the QIU and of the KPI, or "none". Overlap: yes; or no, followed by where the reason is (the KPI's overlap_note, a decision, a QAS) or, when no item holds it, the reason in a few words.>
+<Below the table: the outcomes whose narrowed and overall counts are the same because the input names one context of use only; and, when a KPI has no overlap, that it can move against quality in use.>
 
 ## Hints for later stages
-<For stage 3: statements in the inputs whose subject is the product or the data, and requirements that do not come from users (laws, standards and guidelines, security risk analysis, development policies). For stage 4: operational facts (telemetry, volumes, peaks, existing SLOs or SLAs, baselines). The same lists are in context.yaml.>
+<How many hints context.yaml holds for stage 3, by kind. The hints themselves are only in context.yaml.>
 
-## Needs agreement
-| Item | What to agree | Approver candidates |
-|---|---|---|
+## Decisions
+| # | Question | Answer | Items |
+|---|---|---|---|
+<The questions asked and the answers in effect, numbered per stage and continued on a re-run. An answer that overturns an earlier one replaces its row.>
 
-## Questions and answers
-| # | Question | Drafted answer | Answer | What changed |
-|---|---|---|---|---|
+## Open assumptions
+| QAS | Title | Kind | Breadth | Severity | Items that depend on it |
+|---|---|---|---|---|---|
+<The open assumptions this stage wrote, highest ratings first.>
+
+## Placeholders
+| Name | Stands for | Used in | Value |
+|---|---|---|---|
+<Value: the value written into the items, with the decision or QAS it comes from, or "open" until stage 4 has proposed one and this stage has written it.>
 
 ## Open gaps
+<What is missing and where it matters: a KGI without a measure or a target, a CUJ without steps, an event the product cannot observe (observable: false).>
+
 ## Out of scope
+<One line each: a need that only business procedures, operations or a system outside the boundary can meet, and why.>
+
 ## Next
-Run `quality-in-use-to-functional-requirements`.
+Run `quality-in-use-to-functional-requirements`. <On a re-run: which later stages to re-run, and for which items.>
 ```
 
 ## Worked example: online store
@@ -78,40 +93,65 @@ Input given by the user:
 
 - Users: buyers, warehouse staff, SREs, accounting.
 - CUJs: purchase (cart → payment → order confirmation); SREs isolate a checkout failure (alert → dashboards → failing component); accounting closes the month with the monthly sales report it receives (receive the report → reconcile with payments → close).
-- KGI: revenue, +10% year over year.
+- KGI: revenue, measured as monthly gross sales, +10% year over year.
 - Outcomes: "more people finish buying", "fewer cancellations because something was out of stock".
-- Requirements: "the phone checkout must be quick"; "we must never double-charge"; "SREs should isolate a checkout failure within 15 minutes of the alert".
-- Facts: about 300,000 checkouts a day; load balancer access logs and app events exist.
+- Requirements: "the phone checkout must be quick"; "we must never double-charge"; "SREs should isolate a checkout failure within 15 minutes of the alert"; "flag addresses that do not exist before the order is confirmed"; "stock shown on the product page must be up to date"; and a line of the PRD: "checkout should answer within 1.5 s at the sale peak of about 300 requests per second".
+- Constraints and other systems: "the store never handles card numbers; the payment provider takes card payments and refunds"; "stock counts come from the warehouse system"; a security team memo: "card data must be handled under the card industry's security standard".
+- Facts: about 300,000 checkouts a day; a sale peak of about 300 checkout requests per second; load balancer access logs and application events already exist; a load test report: "a load test at the sale peak answered 99.4% of checkouts within 1.5 s".
+- Kickoff notes: "the storefront stays a web app this year; no native app".
+
+How the draft sorts the input:
+
+- The kickoff note is a design decision. It becomes DIN-01 and goes into no item: QIU-01's context of use says "smartphone", the kind of device, and nothing about the platform. Nor is the platform drafted as an assumption.
+- The card rule becomes CON-01, and the two systems outside the boundary become EXT-01 (payment provider) and EXT-02 (warehouse system), both with `creates_data: true`. The volumes, the logs and the load test are OPF-01 to OPF-04: the logs already exist, so they are a fact, not a design choice, and the load test is a baseline that stage 4 can start a target from.
+- The address check and the PRD's 1.5 s line have the product as their subject, the up-to-date stock has the data, and the security standard does not come from users: all four are hints for stage 3. The 1.5 s hint keeps its source (PRD) and names the sale peak as OPF-03 instead of copying it. What the standard requires is asked in stage 3, not here.
+
+Excerpts of the report follow. The notes between them explain the example and are not part of the report.
+
+Header and summary:
+
+> Status: answers applied · Updated: 2026-02-03 · Inputs as of: 4e1c7a2 · Stage 1 of 4
+>
+> An online store where buyers browse, buy and see their orders; the warehouse system is outside it. Buyers' purchases are protected, with failure isolation for SREs and the month-end close for accounting: six QIUs and three KPIs. Four questions were asked, and one assumption is open.
+
+Shared facts: the boundary and purpose are in `system` in `context.yaml`, with one constraint, two external systems (both create data), four operational facts and one design input.
 
 Business requirements:
 
-| ID | Intermediate outcome | Verb | KGI | Basis |
+| ID | KGI | Basis |
+|---|---|---|
+| KGI-01 | Revenue | stated |
+
+| ID | Intermediate outcome | Verb | KGIs | Basis |
 |---|---|---|---|---|
-| OUT-01 | Increase the number of buyers who complete a purchase | increase | KGI-01 | stated |
-| OUT-02 | Decrease order cancellations caused by stock-outs | decrease | KGI-01 | stated |
-| OUT-03 | Decrease refund requests and billing inquiries from buyers | decrease | KGI-01 | confirmed (input said "we must never double-charge"; question 3) |
+| OUT-01 | More completed purchases | increase | KGI-01 | stated |
+| OUT-02 | Fewer stock-out cancellations | decrease | KGI-01 | stated |
+| OUT-03 | Fewer refund requests and billing inquiries | decrease | KGI-01 | confirmed |
 
 Users:
 
-| ID | User | Category | Data role | Considered | Reason if excluded |
+| ID | User | Category | Data role | Considered | Basis |
 |---|---|---|---|---|---|
-| USR-01 | Buyer | primary | consumer | yes | |
-| USR-02 | Warehouse staff | secondary-operation | producer (stock counts) | no | They work only in the warehouse system, outside the boundary. Their stock counts reach buyers as data, so the warehouse system is recorded under "Systems that create data". |
-| USR-03 | SREs | secondary-maintenance | none | yes | |
-| USR-04 | Accounting | indirect | consumer (monthly sales report) | yes | |
+| USR-01 | Buyer | primary | consumer | yes | stated |
+| USR-02 | Warehouse staff | secondary-operation | producer | no | inferred |
+| USR-03 | SREs | secondary-maintenance | none | yes | stated |
+| USR-04 | Accounting | indirect | consumer | yes | inferred |
+| USR-05 | Marketing staff | secondary-operation | none | no | confirmed |
 
-Accounting is indirect here because it only receives the sales report. If it worked in the system itself, it would be a primary user.
+Warehouse staff work only in the warehouse system, outside the boundary, so they are excluded; their stock counts still reach buyers as data, which is why EXT-02 has `creates_data: true`. Accounting is indirect because it only receives the sales report; if it worked in the system itself, it would be a primary user. The reasons for the exclusions are in `exclusion_reason` in `context.yaml`, not in the report.
 
 Quality-in-use requirements:
 
-| ID | User | CUJ | Context of use | Characteristic | Requirement | Basis |
-|---|---|---|---|---|---|---|
-| QIU-01 | Buyer | CUJ-01 Purchase | Smartphone, card payment | effectiveness | Buyers on smartphones complete card checkout with the right items, quantity and address. | inferred (context confirmed in question 1; the measure is inferred) |
-| QIU-02 | Buyer | CUJ-01 | Repeat purchase on a smartphone | efficiency | Repeat buyers on smartphones finish a second purchase within T_repeat seconds, without re-entering their address or card. | inferred (T_repeat is not in the input and needs agreement) |
-| QIU-03 | Buyer | CUJ-01 | All payment methods | freedom from risk > economic risk mitigation | Buyers are never charged twice or billed the wrong amount. | confirmed (question 3) |
-| QIU-04 | Buyer | CUJ-01 | Product page and cart | effectiveness | Buyers who see "in stock" receive the item without a stock-out cancellation. | inferred (rewritten from OUT-02 with the buyer as the subject) |
-| QIU-05 | SREs | CUJ-02 Isolate a checkout failure | On call, production | efficiency | SREs find the failing component of a checkout failure within 15 minutes of the alert. | inferred (statement and 15 minutes from the input; context inferred) |
-| QIU-06 | Accounting | CUJ-03 Month-end close | Month-end | freedom from risk > economic risk mitigation | Accounting closes the month with sales figures that match the payments. | inferred |
+| ID | Title | User | CUJ | Characteristic | KPI | Target | Basis |
+|---|---|---|---|---|---|---|---|
+| QIU-01 | Buyers finish card checkout on smartphones | USR-01 | CUJ-01 | effectiveness | KPI-01 | undecided | inferred |
+| QIU-02 | Repeat buyers finish a second purchase quickly | USR-01 | CUJ-01 | efficiency | none | undecided | inferred |
+| QIU-03 | Buyers are never charged twice or billed wrongly | USR-01 | CUJ-01 | freedom from risk > economic risk mitigation | KPI-02 | undecided | inferred |
+| QIU-04 | Buyers receive what was shown as in stock | USR-01 | CUJ-01 | effectiveness | KPI-03 | undecided | inferred |
+| QIU-05 | SREs isolate a checkout failure in time | USR-03 | CUJ-02 | efficiency | none | undecided | assumed |
+| QIU-06 | Accounting closes the month on figures that match payments | USR-04 | CUJ-03 | freedom from risk > economic risk mitigation | none | undecided | inferred |
+
+QIU-01 and QIU-03 stay `inferred` although questions settled part of them (the context of one, the outcome of the other): their measures are still the draft's own judgment, as each `basis_note` says. QIU-05 is `assumed` because its context of use rests on QAS-01.
 
 Not targeted (excerpt):
 
@@ -121,34 +161,45 @@ Not targeted (excerpt):
 | CUJ-01 | context coverage > flexibility | The input names no buyers or uses beyond those it describes. |
 | CUJ-01, CUJ-02, CUJ-03 | satisfaction > comfort; freedom from risk > health and safety risk mitigation; freedom from risk > environmental risk mitigation | No failure scenario in the input hurts an outcome. |
 
-One formula, two counts:
+One formula, two counts (excerpt):
 
-| Outcome | Formula (A ÷ B) | Narrowed: quality-in-use measure | Overall: means KPI | Overlap |
-|---|---|---|---|---|
-| OUT-01 | Orders confirmed ÷ checkouts started | QIU-01: smartphone, card payment, signed-in buyers | KPI-01 Purchase completion rate | yes |
-| OUT-03 | Double charges and wrong bills ÷ payments | QIU-03: per payment method | KPI-02 Billing error rate | yes |
-| OUT-02 | Cancellations for stock-outs ÷ orders | QIU-04: product page and cart, all buyers | KPI-03 Stock-out cancellation rate | yes |
-| OUT-01 | Repeat purchases finished within T_repeat seconds ÷ repeat purchases started | QIU-02 | none | no: the business does not count purchase time overall (question 4) |
+| Outcome | QIU (narrowed) | KPI (overall) | Overlap |
+|---|---|---|---|
+| OUT-01 | QIU-01 Buyers finish card checkout on smartphones | KPI-01 Purchase completion rate | yes |
+| OUT-02 | QIU-04 Buyers receive what was shown as in stock | KPI-03 Stock-out cancellation rate | yes |
+| OUT-03 | QIU-03 Buyers are never charged twice or billed wrongly | KPI-02 Billing error rate | yes |
+| OUT-01 | QIU-02 Repeat buyers finish a second purchase quickly | none | no: not counted overall (question 4) |
 
-Hints for later stages:
+Hints for later stages: `context.yaml` holds four hints for stage 3: two of kind product, one of kind data and one of kind standard.
 
-- For stage 3: "Flag addresses that do not exist before confirmation" (subject: the product; user error protection). "Stock shown on the product page must be up to date" (subject: the data; currentness).
-- For stage 4: about 300,000 checkouts a day; load balancer access logs and app events exist.
+Decisions:
 
-Needs agreement:
+| # | Question | Answer | Items |
+|---|---|---|---|
+| 1 | Is "the phone checkout must be quick" about card payment only, or every payment method? | Card payment only. | QIU-01 |
+| 2 | No one who operates the store is considered. Should marketing staff, who run campaigns, be considered as secondary users? | No: they do not use the checkout. | USR-05 |
+| 3 | "We must never double-charge" reads as a business requirement. Should it become the outcome "decrease refund requests and billing inquiries from buyers"? | Yes: add it as an intermediate outcome under KGI-01. | OUT-03, QIU-03, KPI-02 |
+| 4 | The input names no KPIs. Which of these does the business count overall: purchase completion, billing errors, stock-out cancellations, repeat-purchase time? | Purchase completion, billing errors and stock-out cancellations. Repeat-purchase time is not counted overall. | KPI-01, KPI-02, KPI-03, QIU-02 |
 
-| Item | What to agree | Approver candidates |
-|---|---|---|
-| QIU-02 | T_repeat: the seconds within which a repeat purchase should finish | Product owner |
+Question 1 was asked because narrowing a stated requirement to card payment would take protection away from the other payment methods (severity high). Questions 2 to 4 change a user, an outcome, or five or more items (breadth high).
 
-Questions asked after the draft (excerpt):
+Open assumptions:
 
-| # | Question | Drafted answer | Answer | What changed |
-|---|---|---|---|---|
-| 1 | Is "phone checkout must be quick" about card payment only, or every payment method? | Card payment only (most phone orders use cards) | Card payment only | QIU-01's context marked confirmed |
-| 2 | Should marketing staff who run campaigns be considered as secondary users? | Excluded: they do not use the checkout | Excluded | Reason recorded |
-| 3 | "We must never double-charge" reads as a business requirement. Should it become the outcome "decrease refund requests and billing inquiries from buyers"? | Yes, as OUT-03 | Yes | OUT-03 and QIU-03 marked confirmed |
-| 4 | The input names no KPIs. Which of these does the business count overall: purchase completion, billing errors, stock-out cancellations, repeat-purchase time? | The first three | The first three | KPI-01 to KPI-03 marked confirmed; QIU-02 has no KPI |
+| QAS | Title | Kind | Breadth | Severity | Items that depend on it |
+|---|---|---|---|---|---|
+| QAS-01 | SREs answer checkout alerts at any hour | judgment | low | low | QIU-05 |
+
+QAS-01 was not asked: only QIU-05 depends on it, and it is easy to correct before stage 2 writes functions for that QIU.
+
+Placeholders:
+
+| Name | Stands for | Used in | Value |
+|---|---|---|---|
+| T_repeat | Seconds within which a repeat purchase should finish | QIU-02 | open |
+
+Open gaps (excerpt):
+
+- QIU-05 and QIU-06: the store cannot see when SREs find the failing component, or whether a month closes on figures that match the payments (`observable: false`). Stage 2 decides whether a function should produce the data.
 
 ## Example items
 
@@ -157,12 +208,10 @@ Questions asked after the draft (excerpt):
 ```yaml
 id: QIU-01
 title: Buyers finish card checkout on smartphones
-status: draft
-version: 1
+status: active
 basis: inferred
 basis_note: Context of use confirmed in question 1; the measure is inferred
-needs_agreement: false
-approver_candidates: []
+premises: []
 user: USR-01
 cuj: CUJ-01
 outcomes: [OUT-01]
@@ -189,8 +238,6 @@ measure:
 kpi: KPI-01
 target: null
 target_status: undecided
-changelog:
-  - {version: 1, date: 2026-01-31, change: Created, reason: Stage 1 draft; question 1 answered}
 ```
 
 `docs/quality/kpi/KPI-01.yaml`:
@@ -198,12 +245,10 @@ changelog:
 ```yaml
 id: KPI-01
 title: Purchase completion rate
-status: draft
-version: 1
-basis: confirmed
-basis_note: null
-needs_agreement: false
-approver_candidates: []
+status: active
+basis: inferred
+basis_note: Counted overall by the business, confirmed in question 4; the formula is inferred
+premises: []
 outcome: OUT-01
 numerator: Orders confirmed
 denominator: Checkouts started
@@ -212,6 +257,23 @@ overlaps_with: [QIU-01]
 overlap_note: null
 target: null
 target_status: undecided
-changelog:
-  - {version: 1, date: 2026-01-31, change: Created, reason: Stage 1 draft; question 4 answered}
 ```
+
+`docs/quality/qas/QAS-01.yaml`:
+
+```yaml
+id: QAS-01
+title: SREs answer checkout alerts at any hour
+status: open
+stage: 1
+kind: judgment
+statement: SREs handle checkout failure alerts while on call at any hour, nights and weekends included.
+why_unsure: The input gives the 15 minutes but not when SREs are on call.
+breadth: low
+severity: low
+rating_note: One item depends on it; easy to correct before stage 2 writes functions for it
+answer: null
+answered_in: null
+```
+
+QIU-05, which depends on it, has `premises: [QAS-01]` and `basis: assumed`.

@@ -27,20 +27,22 @@ When the user's goal and the business's goal meet in the same event, write one f
 
 Match the two by what A and B count, not by what they are called. A net promoter score, for example, is a difference between two shares, not one A ÷ B, so it is not the overall count of a satisfaction measure.
 
+Write A and B as events of the domain that users would recognize (orders confirmed, checkouts started), not as log lines, fields or tools. Where an event is observed, and with what, is decided by the design.
+
 | Same event (A ÷ B) | Narrowed: quality-in-use measure | Overall: means KPI |
 |---|---|---|
 | Orders confirmed ÷ checkouts started | Task completion rate: buyers on smartphones who finished card checkout | Purchase completion rate |
 | Answers of 4 or more to a satisfaction question ÷ answers | Satisfaction, counted per user type and task | Share of satisfied answers across all users |
 | Double charges and wrong bills ÷ payments | Economic risk, per payment method and user type | Billing error rate |
-| Orders confirmed in the app ÷ checkouts started in the app | Customers on phones at lunch peak paying by card | Order completion rate |
-| Claims approved without being returned ÷ claims submitted | First-pass approval for new employees who photograph receipts on mobile | First-pass approval rate |
+| Delivery orders confirmed ÷ delivery checkouts started | Customers on phones at lunch peak paying by card | Order completion rate |
+| Claims approved without being returned ÷ claims submitted | First-pass approval for new employees who photograph receipts with a smartphone | First-pass approval rate |
 | Report opens where yesterday's data was complete ÷ report opens before 9:00 | Store managers on the morning shift | Daily report completeness at open |
 | Ad clicks ÷ ad impressions | No counterpart: it counts the business's goal, not the user's | Click-through rate |
 
 ## Four things to fix before writing a formula
 
 1. Whose goal, and which goal. Count the user's goal. A formula that counts what the business gets from users (clicks, time on site) falls outside the overlap.
-2. Which context of use. Fix the device, network, user type and task. Only rates from the same context are comparable.
+2. Which context of use. Fix the kind of device, network, user type and task. Only rates from the same context are comparable.
 3. Whether the denominator holds only people who needed the task. If people who never needed it are included, the rate measures demand or season instead.
 4. Whether the product's contribution can be isolated. Compare with an A/B test, or choose an event that sits close to the product's behaviour.
 
@@ -52,7 +54,7 @@ You can define a KPI however you like. That is exactly the danger: write the for
 
 - An outcome with no matching user event gets a means KPI only, without passing through quality in use. Ad revenue is one example. Churn in B2B is another: a customer company decides it, not a user in a CUJ. Record why in the KPI's `overlap_note`.
 - A KPI outside the overlap can move against quality in use. A clickbait headline raises the click-through rate and lowers the share of people who reach what they came for (effectiveness).
-- A quality-in-use measure that the business does not count overall has no KPI. That is fine; leave `kpi: null`. When the input names no KPIs at all, whether the business counts something overall is unknown: draft a KPI only where the event directly counts a stated outcome, and ask.
+- A quality-in-use measure that the business does not count overall has no KPI. That is fine; leave `kpi: null`. When the input names no KPIs at all, whether the business counts something overall is unknown: draft a KPI only where the event directly counts a stated outcome, and treat whether the business counts these KPIs as one uncertain point. Ask about it when its rating calls for a question; otherwise record it as one assumption that the drafted KPIs list in `premises`.
 
 ## Measure shapes by characteristic
 
@@ -64,9 +66,9 @@ You can define a KPI however you like. That is exactly the danger: write the for
 | Freedom from risk | Harmful events ÷ transactions, or loss amount per period | Double charges ÷ payments; refund cost per month |
 | Context coverage | The same formula as another QIU, counted in another context; judge the gap | Completion on slow networks, compared with completion on broadband (`compared_with`) |
 
-A threshold such as "within T seconds" or "by 7:00" is part of the criterion. Take it from the input; when the input gives none, keep the named placeholder and list it under "Needs agreement".
+A threshold such as "within T seconds" or "by 7:00" is part of the criterion. Take it from the input; when the input gives none, keep the named placeholder and list it under "Placeholders".
 
-When the product cannot see the event (reconciliation happens in the customer's own system; satisfaction needs a survey nobody runs yet), keep the formula anyway, set `observable: false`, and record the gap. Replacing it with an event that happens to be logged is the failure described above.
+When the product cannot see the event (reconciliation happens in the customer's own system; satisfaction needs a survey nobody runs yet), keep the formula anyway, set `observable: false`, and record the gap under "Open gaps". Replacing it with an event that happens to be logged is the failure described above.
 
 ## Scales and criteria
 
@@ -76,4 +78,4 @@ When the product cannot see the event (reconciliation happens in the customer's 
 
 ## Targets
 
-Do not hand the KGI target down the chain ("revenue +10%, so completion +2 points"). That only works once the effect of one stage on the next is known, and before the first release nobody knows it. Leave quality-in-use and KPI targets undecided. Mark a target provisional only when the input gives a baseline, and mark every target as needing agreement.
+Do not hand the KGI target down the chain ("revenue +10%, so completion +2 points"). That only works once the effect of one stage on the next is known, and before the first release nobody knows it. Leave quality-in-use and KPI targets undecided. Propose a provisional target only when the input gives a baseline. Such a target is a business decision (`conventions.md`, "Decisions"): when it is asked, the answer sets it; otherwise it stays provisional and is recorded as an assumption with `kind: decision`.
