@@ -8,7 +8,7 @@ English | [日本語](README.ja.md)
 
 Agent skills that turn users, critical user journeys (CUJs) and requirements into quality-in-use requirements and KPIs, then functional requirements, then product and data quality requirements, and finally non-functional requirements with SLIs and SLOs. Every item traces back up the chain, so any SLO can be followed to the user it protects.
 
-> **Status: experimental (0.2.0).** The chain has been run end to end once, on a fictional product with simulated answers. It has not been used on a real project yet, so check its first results closely.
+> **Status: experimental (0.3.0).** The chain has been run end to end on a fictional product with simulated answers and on one real demo project. Version 0.3.0 changes how the skills ask questions, record assumptions and keep history, and keeps design decisions out of the requirements; it has not been run end to end yet, so check its first results closely.
 
 ## The chain
 
@@ -44,9 +44,13 @@ Run the stages in order, each in a fresh request:
 4. "Turn the quality requirements into NFRs and SLOs. We have load balancer logs, about 300,000 checkouts a day."
 5. If stage 3 or 4 raised function proposals: "Re-run stage 2 to resolve the function proposals." Then re-run stages 3 and 4 for the new functions.
 
-Each skill drafts the whole stage first, then asks you about every point it was unsure of. Every judgment is marked `stated`, `inferred` or `confirmed`, so you can see what came from you and what the agent decided.
+Each skill drafts the whole stage first. It then rates every point it was unsure of by breadth (how much depends on it) and severity (the harm if the draft is wrong), and asks you only about the points where either is high. Priorities, targets and policies are rated the same way; when they are asked, your answer is the decision. Two decisions are always asked, whatever their ratings: which quality requirements each CUJ emphasizes, and the error budget policy. Every other point is kept as drafted and recorded as an assumption, which the skill lists at the end for you to skim and correct if you want. Every judgment is marked `stated`, `inferred`, `assumed` or `confirmed`, so you can see what came from you, what the agent decided, and what nobody has checked yet.
 
-Each stage is a long task. For a mid-sized product, expect tens of items per stage, and plan time to review them and to agree on the priorities and targets; that agreement is the point of the exercise.
+Each stage is a long task. For a mid-sized product, expect tens of items per stage, and plan time to review them and to answer the questions about priorities and targets; those answers are the point of the exercise.
+
+The chain says what the system must do and how well, never how. It does not choose platforms, products, the names or protocols of interfaces, data stores, mechanisms or measurement tools, and it does not ask you about them. When your inputs contain such decisions, it keeps them in `context.yaml` for the design (for example, the companion skills in [req-to-design](https://github.com/Taro000/req-to-design)) and leaves them out of the requirements, so that a design change does not mean rewriting them.
+
+Reports and items show only the current state; git keeps the history. Each skill ends its run by committing the files it wrote, with the reasons in the commit message, and the next run reads what changed since then.
 
 Questions and artifacts follow your language and your project's documentation language. The skills themselves are written in English.
 
@@ -55,19 +59,21 @@ Questions and artifacts follow your language and your project's documentation la
 ```
 docs/quality/
 ├── 1-quality-in-use.md … 4-nfr-slo.md   one report per stage
-├── context.yaml                         system, KGIs, outcomes, users, CUJs, hints for later stages
+├── context.yaml                         system, shared facts, design inputs, KGIs, outcomes, users, CUJs, hints
 ├── qiu/  kpi/  fr/  frp/  qr/           one YAML file per requirement
-└── nfr/  sli/  ebp/
+├── nfr/  sli/  ebp/
+└── qas/                                 one YAML file per assumption made without asking
 ```
 
 YAML keys and IDs are fixed in English, so every stage can read every other stage's files.
 
 ## What the skills will not do
 
-- Hand targets down from the top. SLO targets start provisional, from stated numbers or baselines, and are marked as needing agreement.
+- Hand targets down from the top. SLO targets start provisional, from stated numbers or baselines; the ones that matter most are asked, and the rest are recorded as provisional decisions.
 - Invent numbers. A threshold or target that your inputs do not give stays a named placeholder until stage 4 proposes a provisional value, with what it is based on.
 - Fill in what a law or standard requires from general knowledge. When you name one without its content, the skills ask.
-- Decide business priorities for you. Priorities, targets, exclusions and error budget policies are drafted and marked "needs agreement".
+- Decide business priorities for you. Priorities, targets, exclusions and error budget policies are business decisions: each CUJ's emphasized requirements and the error budget policy are always asked, the others when their breadth or severity is high, and the rest are adopted provisionally and recorded as assumptions, never presented as decided.
+- Decide the design. Platforms, products, the names and protocols of interfaces, data stores, mechanisms and measurement tools are left to the design.
 - Write requirements for business procedures, operations or training. When only those can meet a need, the report says so in one line.
 
 ## Maintaining

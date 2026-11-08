@@ -25,7 +25,7 @@ Stage 3 writes only product and data subjects. If a draft requirement has a pers
 - Reliability vs trust. Product: whether the system actually keeps running, counted from records. In use: whether users believe it behaves as intended, asked of users. It may never stop, yet one wrong bill destroys trust.
 - Functional suitability vs effectiveness. Product: whether the functions exist and work correctly. In use: whether users reach their goal to the end. Correct functions do not help if users cannot find them.
 - User interface aesthetics and operability vs pleasure and comfort. Product: properties of the screens, such as colours or the number of steps; inspect the screens. In use: the enjoyment and physical ease that users feel; ask the users.
-- Adaptability vs context coverage. Product: whether it runs on other devices and operating systems. In use: whether people get the same result in other situations. It can run everywhere while completion still drops on a slow network.
+- Adaptability vs context coverage. Product: whether it keeps working on other or changing devices and software. In use: whether people get the same result in other situations. It can run everywhere while completion still drops on a slow network.
 - Usability and accessibility can be measured as product properties (inspect the screens) or as quality in use (observe people using it). Decide which before writing the requirement, or two people will look at different things under the same name.
 
 ## Data quality vs product quality and quality in use
@@ -33,7 +33,7 @@ Stage 3 writes only product and data subjects. If a draft requirement has a pers
 - Completeness vs integrity. Data completeness: no values are missing. Security integrity: no unauthorized access or change.
 - Accuracy vs functional correctness. Data accuracy: the stored values are right. Functional correctness: the processing gives the right result. They are fixed in different places.
 - Availability. Product: the system is running and usable. Data: the data needed can be retrieved. The system can be running while seven-year-old orders cannot be brought back from the archive.
-- Confidentiality. Product: only authorized people get into the screens and functions. Data: the data itself can be read only by authorized people (encryption, masking). Even if the access control is breached, an encrypted phone number stays unreadable.
+- Confidentiality. Product: only authorized people get into the screens and functions. Data: the data itself can be read only by authorized people, wherever it ends up (in a copy handed over for analysis, or in one taken by an attacker). Even if someone gets past the access control, the phone numbers they reach stay unreadable.
 - Recoverability. Product: the system comes back and resumes (how fast). Data: the data survives the failure without loss and keeps its quality (how much is lost). Resuming in 30 minutes does not help if the last hour of orders is gone.
 - Portability. Product: the software can be moved to another environment. Data: the data can be moved to another system with its quality preserved.
 - Accessibility. Product: the screens and operations work with assistive technology. Data: the data itself has a form that assistive technology can read, such as alt text for images.
@@ -44,7 +44,7 @@ Stage 3 writes only product and data subjects. If a draft requirement has a pers
 
 ## Data the system itself creates
 
-When a step of the system creates the data (a receipt-reading step, a nightly batch that builds journal entries), one incident can be written in both strands. Score it once, in the strand where it is fixed:
+When a step of the system creates the data (a step that reads receipts, a step that builds journal entries from approved claims), one incident can be written in both strands. Score it once, in the strand where it is fixed:
 
 - The step produces a wrong result from good input (a misread amount, a journal line built from the wrong claim): product quality, functional correctness of that step. It is fixed in the code.
 - The stored values are wrong, missing or out of step with each other, whatever put them there (a person's entry, an old defect, a migration, a source system), and stay wrong until the data itself is corrected: data quality. It is fixed in the data and in the checks that guard it.

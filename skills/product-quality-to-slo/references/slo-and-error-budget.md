@@ -8,6 +8,7 @@
 - Error budget arithmetic
 - Error budget policy
 - Burn-rate alerts
+- Very low traffic
 - Batch and deadline SLOs
 - SLOs and the backlog
 
@@ -19,26 +20,28 @@
 | SLO | The SLI's target and window, for example 99.9% over 28 days |
 | SLA | A contract with customers; breaking it costs refunds or credits. Set it looser than the SLO |
 | Error budget | 1 − SLO: the amount of failure allowed in the window |
-| Error budget policy | Actions agreed in advance for when the budget is about to run out, or has run out |
+| Error budget policy | Actions decided in advance for when the budget is about to run out, or has run out |
 | Burn rate | How fast the budget is being used. 1 means the budget runs out exactly at the end of the window |
 
 ## Targets
 
 - Do not hand targets down from the top. "Revenue +10%, so purchase completion +2 points, so p99 1.5 s" works only once the effect of each stage on the next is known, and nobody knows that before the release.
-- The first target is provisional. Start from numbers the inputs state, or from baselines (load-test results, current production figures). With neither, choose a conservative value: one the current system most likely meets already, so that the first window measures instead of paging. A target that is too strict pages people over nothing, and teaches them to ignore pages. Tighten it once a few windows of data exist.
-- Mark every target `needs_agreement: true`, and keep `target_status: provisional` until the user says it was agreed.
-- Thresholds inside an SLI ("within T seconds", "by 7:00") are set the same way: from the inputs, then baselines, then a conservative value (for a latency threshold, a longer time). A placeholder left by an earlier stage gets its first value here, and still needs agreement. Write what each value is based on next to it.
-- Do not propose a value that a law, a contract or another party sets, such as a legal retention period. Keep the placeholder and say who sets it. Define a model's cut-off (a confidence score, a similarity score) by the result it must give ("the cut-off at which no more than the agreed share of claims is flagged by mistake"), not by a raw number on a scale you do not know.
-- A proposed value is an agreement item, not a question: asking cannot make you surer of a number nobody has measured. Ask for the facts that would let you set it instead.
+- Start from numbers the inputs state, or from baselines (load-test results, current production figures), which are operational facts (OPF). With neither, choose a conservative value: one the current system most likely meets already, so that the first window measures instead of paging. A target that is too strict pages people over nothing, and teaches them to ignore pages. Tighten it once a few windows of data exist.
+- A target you propose is a business decision (`conventions.md`, "Decisions"). Rate it like any other point. When you ask, the answer is the decision: `target_status: confirmed`. When you do not, record a QAS with `kind: decision`, list it in the NFR's `premises`, and keep `target_status: provisional`. Never present a provisional target as decided.
+- Thresholds inside an SLI ("within T seconds", "by 7:00") are set the same way: from the inputs, then baselines, then a conservative value (for a latency threshold, a longer time). A placeholder left by an earlier stage gets its first value here, and that value is a decision like a target. Write what each value is based on next to it. This stage writes the value into its own items; the earlier stage writes it into its item on its next run.
+- Do not propose a value that a law, a contract or another party sets, such as a legal retention period. Keep the placeholder and say who sets it. Define a model's cut-off (a confidence score, a similarity score) by the result it must give ("the cut-off at which no more than the decided share of claims is flagged by mistake"), not by a raw number on a scale you do not know.
+- Asking for a number nobody has measured does not make it surer. Ask for the facts that would settle it (a baseline, a volume, an existing contract), or, when you ask about it as a decision, whether the user accepts the value you propose and what it is based on.
 - If an SLA exists or is planned, it must be looser than the SLO, so that the SLO's alerts fire before the contract is broken.
 
 ## Windows
 
-Use a rolling 28-day window unless the inputs say otherwise. Twenty-eight days always holds four of each weekday, so weekly patterns do not distort the comparison between windows. Use a calendar month only when the SLO must line up with monthly reporting, and say so.
+Use a rolling 28-day window unless the inputs say otherwise. Twenty-eight days always holds four of each weekday, so weekly patterns do not distort the comparison between windows. Use a calendar month only when the SLO must line up with monthly reporting, and say so. A window other than the default is a business decision, rated like a target.
 
 ## Tolerance is the error budget
 
 Write the acceptable tolerance as the error budget, and draw no second line below the target. If the target is 99% and the requirement adds "down to 98.5% is 'watch'", then on the day the budget runs out and releases stop, the requirement still says "watch". Keep intermediate steps ("at 50% remaining, put reliability work first") in the policy only, so that the requirement and the policy never call for different actions.
+
+A requirement that allows no bad event at all ("never charge an order twice") has no budget to spend. Write it as a `monitor` that notifies on every bad event, not as an SLO.
 
 ## Error budget arithmetic
 
@@ -55,15 +58,15 @@ Write the acceptable tolerance as the error budget, and draw no second line belo
 
 Example: 300,000 order confirmations a day, over 28 days. A latency SLO of 99% within 1.5 s allows 84,000 slow confirmations. An availability SLO of 99.9% allows 8,400 failed confirmations, about 40 minutes of full outage.
 
-When the traffic is unknown, write the formula and ask for the volume instead of guessing it.
+The daily volume is an operational fact: the NFR lists its OPF in `premises`, so that the budget volume is recomputed when the fact changes. When the traffic is unknown, write the formula and ask for the volume instead of guessing it.
 
-The full-outage equivalent assumes traffic spread evenly over the window. When traffic is concentrated (office hours, month-end), an outage at the peak uses the budget faster than the minutes suggest; say so next to the number.
+The full-outage equivalent assumes traffic spread evenly over the window. When traffic is concentrated (office hours, month-end, a sale peak), an outage at the peak uses the budget faster than the minutes suggest; say so next to the number.
 
 ## Error budget policy
 
-An SLO whose budget can run out without anything changing is only a chart. Agree in advance, between the business and development, what happens. A starting draft:
+An SLO whose budget can run out without anything changing is only a chart. Decide in advance what happens. A starting draft:
 
-| Condition | Action agreed in advance |
+| Condition | Action decided in advance |
 |---|---|
 | Remaining budget falls below 50% | The next sprint puts reliability work first |
 | One incident consumes 20% or more | A postmortem is required, and at least one root-cause fix goes first |
@@ -71,7 +74,7 @@ An SLO whose budget can run out without anything changing is only a chart. Agree
 | 50% or more remains at the end of every window | Tighten the SLO, or spend the surplus on release speed and experiments |
 | A data SLO's budget is exhausted | Ticket both the fix of the cause and the correction of the bad data already stored. Fixing the cause does not repair data that was already written |
 
-Adjust the thresholds and actions to the organization. Mark the policy as needing agreement, with approver candidates from both sides. A policy without agreement is not followed on the day the budget runs out.
+Adjust the thresholds and actions to the organization. A policy is a business decision that is always asked, whatever its ratings (`conventions.md`, "Decisions"): it binds every SLO it applies to, and the user's answer is the policy. Settle it before any budget runs out; a policy first discussed on the day the budget is gone gets argued over instead of followed.
 
 ## Burn-rate alerts
 
@@ -95,6 +98,10 @@ These hold when events are spread evenly over time. With uneven traffic, the sha
 | 1 | 3 d | 10.0% | 10.7% | 28 days |
 
 For services with little traffic, a handful of failures can trip the short windows. Lengthen the windows, or require a minimum number of events before alerting, and say which you chose.
+
+## Very low traffic
+
+When a window holds so few events that one bad event uses the whole budget (fewer than 1 ÷ (1 − target) events), the budget steers nothing: every burn-rate rule fires only after it is spent, and the policy's thresholds are crossed all at once. Show the budget volume and ask whether to keep the SLO, with each bad event ticketed and reviewed one by one, or to make the NFR a monitor that reports each bad event. Which to keep is a business decision, and so is which policy rules still apply when one event spends the budget.
 
 ## Batch and deadline SLOs
 

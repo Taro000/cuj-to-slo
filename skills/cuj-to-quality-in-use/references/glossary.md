@@ -33,8 +33,14 @@ Use these terms for the working language. For a language not listed, or a term m
 | threshold | しきい値 |
 | placeholder (for a number not yet decided) | 未定の値 |
 | hints for later stages | 後の段階へのヒント |
+| shared facts | 共有する事実 |
+| constraint | 制約 |
+| external system | 外部のシステム |
 | operational facts | 運用の事実 |
-| impact / likelihood / score | 影響 / 起こりやすさ / 点 |
+| design input (a design decision found in the input, passed on to design: `design_inputs`) | 設計への申し送り |
+| premises (what an item depends on) | 前提 |
+| impact / likelihood / score | 影響度 / 起こりやすさ / 点 |
+| handling (of a quality requirement) | 扱い |
 | emphasized | 重視 |
 | minimum line | 最低限守る線 |
 | excluded (this cycle) | 今期は対象外 |
@@ -49,6 +55,7 @@ Use these terms for the working language. For a language not listed, or a term m
 | existing / new / extension | 既存 / 新規 / 拡張 |
 | quality hints | 品質のヒント |
 | quality-in-use coverage | 利用時の品質要求の対応 |
+| covered by: new function / extension / an FR carries it as quality only / data comes from elsewhere | 対応の仕方: 新しい機能 / 拡張 / 機能要件が品質として担う / データはほかから得る |
 | functions considered and not added | 検討して加えなかった機能 |
 | untraced functions | たどれない機能 |
 | interface | インタフェース |
@@ -62,8 +69,8 @@ Use these terms for the working language. For a language not listed, or a term m
 | kinds of NFR: slo / gate / audit / monitor | 非機能要件の種類: SLO / ゲート / 監査 / 監視 |
 | release check | リリース前の確認 |
 | SLI definition | SLI 定義書 |
-| measurement point | 測定点 |
-| measurement method | 測定方法 |
+| vantage (where the events are observed): user-side / system-boundary / synthetic / data | 見る位置: 利用者の側 / システムの境界 / 模擬の利用 / データ |
+| existing source (telemetry that already exists) | 既存の出どころ |
 | reshaping rules | 測定量を整える規則 |
 | two-person test | 二人で数えて同じ値になるかの確認 |
 | counting rule | 数え方の規則 |
@@ -80,13 +87,19 @@ Use these terms for the working language. For a language not listed, or a term m
 | progress alert (before a deadline) | 進み具合のアラート |
 | traceability | トレーサビリティ |
 | provisional target | 仮の目標値 |
-| needs agreement | 要合意 |
-| approver candidates | 承認者の候補 |
+| target status: undecided / provisional / confirmed | 目標値の状態: 未定 / 仮 / 確認済み |
+| business decision | 事業の判断 |
+| decisions (the questions asked and the answers in effect) | 決めたこと |
+| assumption (a judgment made without asking) | 仮定 |
+| assumption kind: judgment / decision | 仮定の種類: 判断 / 暫定の決定 |
+| assumption status: open / confirmed / overturned / retired | 仮定の状態: 未確認 / 確認済み / 覆った / 廃止 |
+| breadth / severity: high / medium / low | 影響の広さ / 重大さ: 高 / 中 / 低 |
 | open gaps | 未解決の点 |
 | out of scope (cannot be met by software) | 範囲外 |
-| basis: stated / inferred / confirmed | 根拠: 入力 / 推定 / 確認済み |
-| status: draft / agreed / retired | 状態: 下書き / 合意済み / 廃止 |
+| basis: stated / inferred / assumed / confirmed | 根拠: 入力 / 推定 / 仮定 / 確認済み |
+| status: active / retired | 状態: 有効 / 廃止 |
 | report status: draft / answers applied | 報告書の状態: 下書き / 回答反映済み |
+| inputs as of (the commit the inputs were read at) | 入力の基準 |
 
 ## Quality models
 
@@ -97,6 +110,7 @@ Use these terms for the working language. For a language not listed, or a term m
 | data quality | データの品質 |
 | characteristic / sub-characteristic | 特性 / 副特性 |
 | external quality / internal quality | 外部品質 / 内部品質 |
+| layer (of a quality requirement): external / internal / data-inherent / data-system-dependent | 層: 外部 / 内部 / データ固有 / データのシステム依存 |
 | inherent / system-dependent (data) | 固有 / システム依存 |
 
 ### Quality in use
