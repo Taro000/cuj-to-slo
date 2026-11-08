@@ -73,8 +73,9 @@ Status: draft | answers applied · Updated: <date> · Inputs as of: <commit, or 
 <The open assumptions this stage wrote, highest ratings first.>
 
 ## Placeholders
-| Name | Stands for | Used in |
-|---|---|---|
+| Name | Stands for | Used in | Value |
+|---|---|---|---|
+<Value: the value written into the items, with the decision or QAS it comes from, or "open" until stage 4 has proposed one and this stage has written it.>
 
 ## Open gaps
 <What is missing and where it matters: a KGI without a measure or a target, a CUJ without steps, an event the product cannot observe (observable: false).>
@@ -192,9 +193,9 @@ QAS-01 was not asked: only QIU-05 depends on it, and it is easy to correct befor
 
 Placeholders:
 
-| Name | Stands for | Used in |
-|---|---|---|
-| T_repeat | Seconds within which a repeat purchase should finish | QIU-02 |
+| Name | Stands for | Used in | Value |
+|---|---|---|---|
+| T_repeat | Seconds within which a repeat purchase should finish | QIU-02 | open |
 
 Open gaps (excerpt):
 

@@ -61,9 +61,9 @@ Status: draft | answers applied · Updated: <date> · Inputs as of: <commit, or 
 <The open assumptions this stage wrote, and the open upstream ones its items depend on.>
 
 ## Placeholders
-| Name | Stands for | Used in |
-|---|---|---|
-<Tunable thresholds in this stage's acceptance criteria, and the upstream placeholders that its quality hints use. When stage 4 has proposed a value, name its QAS or decision; this stage writes the value into its FRs.>
+| Name | Stands for | Used in | Value |
+|---|---|---|---|
+<Tunable thresholds in this stage's acceptance criteria, and the upstream placeholders that its quality hints use. When stage 4 has proposed a value, this stage writes it into its FRs. Value: the value written, with the decision or QAS it comes from, or "open".>
 
 ## Open gaps
 <Include the functions you expect stage 3 to propose for laws, standards, risk analysis or policies, and the gaps in stage 1's part of context.yaml (a user, a data role, a CUJ step). The external systems, constraints, operational facts and design inputs this stage added are in context.yaml, named under "Inputs" or "Decisions".>
@@ -163,9 +163,9 @@ Open assumptions:
 
 Placeholders:
 
-| Name | Stands for | Used in |
-|---|---|---|
-| T_repeat | The seconds within which a repeat purchase should finish (from stage 1); stage 4 proposed its value (QAS-12) | QIU-02, FR-02 |
+| Name | Stands for | Used in | Value |
+|---|---|---|---|
+| T_repeat | The seconds within which a repeat purchase should finish (from stage 1) | QIU-02, FR-02 | 60 s, from QAS-12 (open) |
 
 Next (excerpt):
 

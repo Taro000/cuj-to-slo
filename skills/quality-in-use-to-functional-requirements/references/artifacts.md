@@ -41,7 +41,7 @@ docs/quality/
 - The YAML items are the source of truth. The report summarizes and indexes them and never restates what an item says; it holds what only the report records (reasons for leaving something out, coverage checks, decisions, open gaps). The items are written while the stage drafts, and answers change them in place. If the report and an item disagree, ask which one is right; do not silently pick one.
 - `context.yaml` holds the inputs that the other items refer to (system, shared facts, KGIs, outcomes, users, CUJs), and what stage 1 found for later stages (hints). It is the only file that holds more than one entry. Stage 1 writes it; later stages only add or correct shared facts (`conventions.md`, "Shared facts"). Entries are never deleted and their numbers never reused: an entry of any list that no longer holds gets `status: retired`; an entry without `status` is active.
 - Items hold the current state only: no changelog, no version, no dates of changes. Git keeps the history (`conventions.md`, "Current state only").
-- Keep the YAML valid. Quote a free-text value when it contains `: ` or ` #`, or starts with one of `[ { * & ! | > ' " % @` or a backtick. Inside `[ ]` or `{ }`, also quote a value that contains a comma or `: `, or the value is silently split.
+- Keep the YAML valid. Quote a free-text value when it contains `: ` or ` #`, or starts with one of `[ { * & ! | > ' " % @` or a backtick. Cite decisions and questions without `#` ("decision 12", "stage 3, decision 4"): an unquoted ` #` starts a comment and silently cuts off the rest of the value. Inside `[ ]` or `{ }`, also quote a value that contains a comma or `: `, or the value is silently split.
 
 ## Common fields
 
@@ -167,7 +167,7 @@ measure:
   narrowed_to: Smartphone, card payment, signed-in buyers; test accounts excluded
   denominator_needed_only: Only buyers who started checkout are counted
   contribution: Event sits right after the checkout flow; A/B testing is possible
-  observable: true                    # false when the product cannot see the event yet; say why in the report's open gaps
+  observable: true                    # true when the events happen in the product, so that a function can count them (name the FR, or the open FRP, in basis_note); false when they happen outside it; say why in the report's open gaps
   compared_with: null                 # context coverage only: the QIU whose formula this one repeats in another context
   scale: ratio                        # nominal | ordinal | interval | ratio
 kpi: KPI-01                           # the same formula counted overall; null when there is none
@@ -183,7 +183,7 @@ outcome: OUT-01
 numerator: Orders confirmed
 denominator: Checkouts started
 counted_over: All users and all contexts of use
-observable: true                      # false when the product cannot see the event yet
+observable: true                      # true when the events happen in the product; false when they happen outside it
 overlaps_with: [QIU-01]               # [] when the formula has no quality-in-use counterpart
 overlap_note: null                    # required when overlaps_with is empty: why there is no overlap
 target: null
