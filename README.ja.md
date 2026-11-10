@@ -8,7 +8,7 @@
 
 利用者、クリティカルユーザージャーニー（CUJ）、要求を出発点に、利用時の品質要求と KPI、機能要件、製品とデータの品質要求を順に導き、最後に SLI と SLO を備えた非機能要件にまとめるエージェントスキルです。各項目は前の段階の項目にさかのぼれるので、どの SLO からでも、それが守っている利用者までたどれます。
 
-> **状態: 実験的（0.3.0）。** 架空の製品を題材に模擬の回答で 4 つの段階を通しで実行し、実際のデモのプロジェクトでも一度使いました。0.3.0 では、質問の仕方、仮定の記録、履歴の持ち方を変え、設計の判断を要求から外しました。この版はまだ通しで実行していないので、最初の結果は念入りに確認してください。
+[chain-summary-html](https://github.com/Taro000/chain-summary-html) で 1 ページにまとめた例: [配車アプリ（日本語）](https://taro000.github.io/chain-summary-html/ride-hailing-full/docs/quality/summary.html)、[宿題提出サービス（英語）](https://taro000.github.io/chain-summary-html/homework-service-full-en/docs/quality/summary.html)。
 
 ## 4 つの段階
 

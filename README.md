@@ -8,7 +8,7 @@ English | [日本語](README.ja.md)
 
 Agent skills that turn users, critical user journeys (CUJs) and requirements into quality-in-use requirements and KPIs, then functional requirements, then product and data quality requirements, and finally non-functional requirements with SLIs and SLOs. Every item traces back up the chain, so any SLO can be followed to the user it protects.
 
-> **Status: experimental (0.3.0).** The chain has been run end to end on a fictional product with simulated answers and on one real demo project. Version 0.3.0 changes how the skills ask questions, record assumptions and keep history, and keeps design decisions out of the requirements; it has not been run end to end yet, so check its first results closely.
+Example of a one-page view built with [chain-summary-html](https://github.com/Taro000/chain-summary-html): [ride-hailing app (Japanese)](https://taro000.github.io/chain-summary-html/ride-hailing-full/docs/quality/summary.html), [homework service (English)](https://taro000.github.io/chain-summary-html/homework-service-full-en/docs/quality/summary.html).
 
 ## The chain
 
